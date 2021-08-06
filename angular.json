@@ -77,6 +77,14 @@
           }
         },
         "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "configPath": "jest.pact.config.js",
+            "tsConfig": "tsconfig.spec.json",
+            "runInBand": true
+          }
+        },
+        "test-2": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
