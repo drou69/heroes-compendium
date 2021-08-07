@@ -4,7 +4,8 @@ let project = require('./package.json');
 
 let options = {
   pactFilesOrDirs: [projectFolder + '/pacts'],
-  pactBroker: 'http://localhost:9292',
+  pactBroker: 'https://pascaldrouinconsultantinc.pactflow.io',
+  pactBrokerToken: "z-W7aUsUK9cPhkQFeYsajg",
   consumerVersion: project.version,
   tags: ['latest']
 };

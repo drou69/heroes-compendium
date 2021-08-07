@@ -8,7 +8,6 @@ import * as path from 'path';
 describe('HeroServicePact', () => {
   var provider = new Pact({
     cors: true,
-    spec: 1,
     port: 8080,
     host: 'localhost',
     consumer: 'heroes-compendium',
@@ -78,6 +77,36 @@ describe('HeroServicePact', () => {
 
       await heroService.getHeroes().toPromise().then(response => {
         expect(response).toEqual(expectedHeroes);
+      });
+    })
+  });
+
+  describe('get hero', () => {
+    const expectedHero: Hero = {   
+      id:1,
+      name:'Superman',
+    };
+
+    beforeAll(async () => {
+      await provider.addInteraction({
+        state: 'searched heroes exist',
+        uponReceiving: 'a request to get a hero',
+        withRequest: {
+          method:'GET',
+          path:'/heroes/1'
+        },
+        willRespondWith: {
+          status:200,
+          body: Matchers.like(expectedHero)
+        }
+      });
+    });
+
+    it('should get heroes', async() => {
+      const heroService = TestBed.inject(HeroService);
+
+      await heroService.getHero(1).toPromise().then(response => {
+        expect(response).toEqual(expectedHero);
       });
     })
   })
